@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Poll;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $polls = Poll::with('options')->latest()->get();
+        return view('home', compact('polls'));
     }
 }
