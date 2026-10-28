@@ -57,7 +57,6 @@
         }
     }
 </script>
-
     <a href="{{ route('home') }}">← Visos apklausos</a>
     <h1>{{ $poll->title }}</h1>
 
