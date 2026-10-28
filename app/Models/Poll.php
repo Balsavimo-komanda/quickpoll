@@ -21,7 +21,7 @@ class Poll extends Model
             $poll->code = $code;
         });
     }
-    
+
     /**
      * A poll has many options.
      */

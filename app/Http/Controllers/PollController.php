@@ -57,7 +57,7 @@ class PollController extends Controller
             return back()->with('error', 'Pasirinkta netinkamas atsakymo variantas.');
         }
 
-                try {
+        try {
             Vote::create([
                 'poll_id' => $poll->id,
                 'poll_option_id' => $request->poll_option_id,
@@ -67,8 +67,7 @@ class PollController extends Controller
             if ($e->errorInfo[1] == 1062 || str_contains($e->getMessage(), 'UNIQUE constraint')) {
                 $request->session()->put('poll_visitors.'.$poll->id, $request->visitor_id);
 
-                return redirect()->route('polls.results', $poll)
-                    ->with('error', 'Jūs jau balsavote šioje apklausoje!');
+                return redirect()->route('polls.results', $poll)->with('error', 'Jūs jau balsavote šioje apklausoje!');
             }
 
             throw $e;
@@ -79,8 +78,7 @@ class PollController extends Controller
 
         return redirect()->route('polls.results', $poll);
     }
-    
-    
+
     public function results(Request $request, Poll $poll): View|RedirectResponse
     {
         $visitorId = $request->session()->get('poll_visitors.'.$poll->id);
@@ -89,7 +87,7 @@ class PollController extends Controller
             ->where('visitor_id', $visitorId)
             ->exists();
 
-        if (! $hasVoted) {
+        if (!$hasVoted) {
             return redirect()->route('polls.show', $poll)
                 ->with('error', 'Rezultatus galėsite matyti po balsavimo.');
         }
@@ -100,7 +98,8 @@ class PollController extends Controller
 
         return view('polls.results', compact('poll', 'options', 'total', 'selectedOptionId'));
     }
-        public function joinForm(): View
+
+    public function joinForm(): View
     {
         return view('polls.join');
     }
@@ -108,12 +107,12 @@ class PollController extends Controller
     public function join(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'code' => 'required|string|max:16',
+            'code' => 'required|string|max:6|alpha_num',
         ]);
 
         $poll = Poll::where('code', strtoupper(trim($data['code'])))->first();
 
-        if (! $poll) {
+        if (!$poll) {
             return back()->withInput()->with('error', 'Apklausa su tokiu kodu nerasta.');
         }
 
