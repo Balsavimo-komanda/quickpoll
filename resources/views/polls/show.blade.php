@@ -24,6 +24,39 @@
 </head>
 <body>
 <main>
+    <div>
+    <p>
+        Kodas: <strong id="poll-code">{{ $poll->code }}</strong>
+        <button type="button" onclick="copyText('{{ $poll->code }}', this)">Kopijuoti kodą</button>
+    </p>
+    <p>
+        Nuoroda: <a href="{{ route('polls.join.code', $poll->code) }}">{{ route('polls.join.code', $poll->code) }}</a>
+        <button type="button" onclick="copyText('{{ route('polls.join.code', $poll->code) }}', this)">Kopijuoti nuorodą</button>
+    </p>
+</div>
+
+<script>
+    function copyText(text, btn) {
+        const done = () => {
+            const old = btn.textContent;
+            btn.textContent = 'Nukopijuota!';
+            setTimeout(() => btn.textContent = old, 1500);
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(done);
+        } else {
+            // atsarginis būdas, jei clipboard API neprieinamas
+            const input = document.createElement('input');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            done();
+        }
+    }
+</script>
     <a href="{{ route('home') }}">← Visos apklausos</a>
     <h1>{{ $poll->title }}</h1>
 

@@ -87,7 +87,7 @@ class PollController extends Controller
             ->where('visitor_id', $visitorId)
             ->exists();
 
-        if (! $hasVoted) {
+        if (!$hasVoted) {
             return redirect()->route('polls.show', $poll)
                 ->with('error', 'Rezultatus galėsite matyti po balsavimo.');
         }
@@ -97,5 +97,32 @@ class PollController extends Controller
         $selectedOptionId = $request->session()->get('poll_votes.'.$poll->id);
 
         return view('polls.results', compact('poll', 'options', 'total', 'selectedOptionId'));
+    }
+
+    public function joinForm(): View
+    {
+        return view('polls.join');
+    }
+
+    public function join(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'code' => 'required|string|max:6|alpha_num',
+        ]);
+
+        $poll = Poll::where('code', strtoupper(trim($data['code'])))->first();
+
+        if (!$poll) {
+            return back()->withInput()->with('error', 'Apklausa su tokiu kodu nerasta.');
+        }
+
+        return redirect()->route('polls.show', $poll);
+    }
+
+    public function joinByCode(string $code): RedirectResponse
+    {
+        $poll = Poll::where('code', strtoupper($code))->firstOrFail();
+
+        return redirect()->route('polls.show', $poll);
     }
 }
