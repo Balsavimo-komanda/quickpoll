@@ -100,4 +100,30 @@ class PollController extends Controller
 
         return view('polls.results', compact('poll', 'options', 'total', 'selectedOptionId'));
     }
+        public function joinForm(): View
+    {
+        return view('polls.join');
+    }
+
+    public function join(Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'code' => 'required|string|max:16',
+        ]);
+
+        $poll = Poll::where('code', strtoupper(trim($data['code'])))->first();
+
+        if (! $poll) {
+            return back()->withInput()->with('error', 'Apklausa su tokiu kodu nerasta.');
+        }
+
+        return redirect()->route('polls.show', $poll);
+    }
+
+    public function joinByCode(string $code): RedirectResponse
+    {
+        $poll = Poll::where('code', strtoupper($code))->firstOrFail();
+
+        return redirect()->route('polls.show', $poll);
+    }
 }

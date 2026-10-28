@@ -20,4 +20,8 @@ Route::get('/polls/{poll}/results', [PollController::class, 'results'])
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/join', [PollController::class, 'joinForm'])->name('polls.join.form');
+Route::post('/join', [PollController::class, 'join'])->middleware('throttle:10,1')->name('polls.join');
+Route::get('/j/{code}', [PollController::class, 'joinByCode'])->name('polls.join.code');
+
 Auth::routes();

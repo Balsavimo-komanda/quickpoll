@@ -9,6 +9,8 @@
 <h1>Sveiki atvykę į QuickPoll</h1>
 <p>Kurkite apklausas ir balsuokite greitai.</p>
 <a href="{{ route('polls.create') }}">Nauja apklausa</a>
+<br>
+<a href="{{ route('polls.join.form') }}">Turiu kodą</a>
 <h2>Apklausos</h2>
 <ul>
     @forelse ($polls as $poll)

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Poll extends Model
 {
@@ -10,6 +11,17 @@ class Poll extends Model
         'title'
     ];
 
+    protected static function booted(): void
+    {
+        static::creating(function (Poll $poll) {
+            do {
+                $code = strtoupper(Str::random(6));
+            } while (static::where('code', $code)->exists());
+
+            $poll->code = $code;
+        });
+    }
+    
     /**
      * A poll has many options.
      */
