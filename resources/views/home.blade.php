@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+
+
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -7,6 +11,13 @@
 </head>
 <body>
 <h1>Sveiki atvykę į QuickPoll</h1>
+
+@guest
+<p>No account</p>
+@else
+<p>With account</p>
+@endguest
+
 <p>Kurkite apklausas ir balsuokite greitai.</p>
 <a href="{{ route('polls.create') }}">Nauja apklausa</a>
 <h2>Apklausos</h2>

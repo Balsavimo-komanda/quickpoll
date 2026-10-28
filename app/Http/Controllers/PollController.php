@@ -57,7 +57,7 @@ class PollController extends Controller
             return back()->with('error', 'Pasirinkta netinkamas atsakymo variantas.');
         }
 
-                try {
+        try {
             Vote::create([
                 'poll_id' => $poll->id,
                 'poll_option_id' => $request->poll_option_id,
@@ -67,8 +67,7 @@ class PollController extends Controller
             if ($e->errorInfo[1] == 1062 || str_contains($e->getMessage(), 'UNIQUE constraint')) {
                 $request->session()->put('poll_visitors.'.$poll->id, $request->visitor_id);
 
-                return redirect()->route('polls.results', $poll)
-                    ->with('error', 'Jūs jau balsavote šioje apklausoje!');
+                return redirect()->route('polls.results', $poll)->with('error', 'Jūs jau balsavote šioje apklausoje!');
             }
 
             throw $e;
@@ -79,8 +78,7 @@ class PollController extends Controller
 
         return redirect()->route('polls.results', $poll);
     }
-    
-    
+
     public function results(Request $request, Poll $poll): View|RedirectResponse
     {
         $visitorId = $request->session()->get('poll_visitors.'.$poll->id);
