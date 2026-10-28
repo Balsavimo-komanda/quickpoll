@@ -65,12 +65,37 @@ class PollController extends Controller
             ]);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062 || str_contains($e->getMessage(), 'UNIQUE constraint')) {
-                return back()->with('error', 'Jūs jau balsavote šioje apklausoje!');
+                $request->session()->put('poll_visitors.'.$poll->id, $request->visitor_id);
+
+                return redirect()->route('polls.results', $poll)->with('error', 'Jūs jau balsavote šioje apklausoje!');
             }
 
             throw $e;
         }
 
-        return redirect()->route('polls.show', $poll->id)->with('status', 'Jūsų balsas sėkmingai pateiktas!');
+        $request->session()->put('poll_visitors.'.$poll->id, $request->visitor_id);
+        $request->session()->put('poll_votes.'.$poll->id, $request->poll_option_id);
+
+        return redirect()->route('polls.results', $poll);
+    }
+
+    public function results(Request $request, Poll $poll): View|RedirectResponse
+    {
+        $visitorId = $request->session()->get('poll_visitors.'.$poll->id);
+
+        $hasVoted = $visitorId && Vote::where('poll_id', $poll->id)
+            ->where('visitor_id', $visitorId)
+            ->exists();
+
+        if (! $hasVoted) {
+            return redirect()->route('polls.show', $poll)
+                ->with('error', 'Rezultatus galėsite matyti po balsavimo.');
+        }
+
+        $options = PollOption::where('poll_id', $poll->id)->withCount('votes')->get();
+        $total = $options->sum('votes_count');
+        $selectedOptionId = $request->session()->get('poll_votes.'.$poll->id);
+
+        return view('polls.results', compact('poll', 'options', 'total', 'selectedOptionId'));
     }
 }

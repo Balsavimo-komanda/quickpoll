@@ -15,6 +15,9 @@ Route::get('/polls/create', [PollController::class, 'create'])->name('polls.crea
 
 Route::get('/polls/{poll}', [PollController::class, 'show'])->name('polls.show');
 
+Route::get('/polls/{poll}/results', [PollController::class, 'results'])
+    ->name('polls.results');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
