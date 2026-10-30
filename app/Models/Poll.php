@@ -2,14 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Poll extends Model
 {
+    use HasFactory, HasUuids;
+
     protected $fillable = [
-        'title'
+        'title',
     ];
+
+    public function newUniqueId(): string
+    {
+        return (string) Str::uuid();
+    }
 
     protected static function booted(): void
     {
@@ -22,17 +31,11 @@ class Poll extends Model
         });
     }
 
-    /**
-     * A poll has many options.
-     */
     public function options()
     {
         return $this->hasMany(PollOption::class);
     }
 
-    /**
-     * A poll has many votes across all options.
-     */
     public function votes()
     {
         return $this->hasMany(Vote::class);

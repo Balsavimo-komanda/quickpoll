@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('polls', function (Blueprint $table) {
-            $table->id(); // Primary key for the poll.
+            $table->uuid('id')->primary(); // Primary key for the poll.
             $table->string('title'); // The question or title of the poll.
             $table->timestamps(); // created_at and updated_at timestamps.
         });

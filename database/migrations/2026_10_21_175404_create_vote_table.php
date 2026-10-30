@@ -13,24 +13,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('votes', function (Blueprint $table) {
-            $table->id(); // Primary key for the vote.
+            $table->id();
 
-            // Foreign key linking this vote to overall poll.
-            // If the poll is deleted, its votes are automatically deleted too.
-            $table->foreignId('poll_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('poll_id')
+                ->constrained('polls')
+                ->cascadeOnDelete();
 
-            // Foreign key linking this vote to the specific option chosen.
-            // If the poll is deleted, it will delete its options too, thus its votes.
-            $table->foreignId('poll_option_id')->constrained('poll_options')->cascadeOnDelete();
+            $table->foreignId('poll_option_id')
+                ->constrained('poll_options')
+                ->cascadeOnDelete();
 
-            // Stores the browser fingerprint hash.
             $table->string('visitor_id');
-
-            // This is not a database column, but a constraint!
-            // Ensures a visitor can only register ONE vote per poll total.
             $table->unique(['poll_id', 'visitor_id']);
-
-            $table->timestamps(); // created_at and updated_at timestamps.
+            $table->timestamps();
         });
     }
 
