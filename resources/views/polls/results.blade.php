@@ -1,45 +1,63 @@
-<!DOCTYPE html>
-<html lang="lt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rezultatai: {{ $poll->title }}</title>
-    <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
-        .option { margin-bottom: 16px; }
-        .bar-bg { background: #e5e7eb; border-radius: 6px; overflow: hidden; height: 14px; }
-        .bar { background: #4f46e5; height: 100%; }
-        .meta { color: #555; font-size: 14px; }
-    </style>
-</head>
-<body>
-    <h1>{{ $poll->title }}</h1>
+@extends('layouts.app')
+
+@section('title', 'Rezultatai: ' . $poll->title)
+
+@section('content')
+<div class="container py-5" style="max-width: 650px;">
+
+    <h1 class="mb-2">{{ $poll->title }}</h1>
+    <p class="text-muted mb-4">Apklausos rezultatai</p>
 
     @if (session('error'))
-        <p style="color:#b91c1c">{{ session('error') }}</p>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
 
-    <p class="meta">Iš viso balsų: {{ $total }}</p>
+    <p class="mb-4">
+        Iš viso balsų: <strong>{{ $total }}</strong>
+    </p>
 
     @foreach ($options as $option)
         @php
-            $percent = $total > 0 ? round($option->votes_count / $total * 100) : 0;
+            $percent = $total > 0
+                ? round($option->votes_count / $total * 100)
+                : 0;
         @endphp
 
-        <div class="option">
-            <div>
+        <div class="mb-4">
+            <div class="d-flex justify-content-between mb-1">
                 <strong>{{ $option->text }}</strong>
-                @if (isset($selectedOptionId) && $option->id == $selectedOptionId)
-                    <span class="meta">(tavo balsas)</span>
-                @endif
+
+                <span class="text-muted">
+                    {{ $percent }}%
+                </span>
             </div>
-            <div class="bar-bg">
-                <div class="bar" style="width: {{ $percent }}%"></div>
+
+            @if (isset($selectedOptionId) && $option->id == $selectedOptionId)
+                <small class="text-primary">Tavo balsas</small>
+            @endif
+
+            <div class="progress mt-2" style="height: 12px;">
+                <div
+                    class="progress-bar"
+                    role="progressbar"
+                    style="width: {{ $percent }}%"
+                    aria-valuenow="{{ $percent }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100">
+                </div>
             </div>
-            <div class="meta">{{ $option->votes_count }} balsai ({{ $percent }}%)</div>
+
+            <small class="text-muted">
+                {{ $option->votes_count }} balsai
+            </small>
         </div>
     @endforeach
 
-    <p><a href="{{ route('polls.show', $poll) }}">← Grįžti prie apklausos</a></p>
-</body>
-</html>
+    <a href="{{ route('polls.show', $poll) }}" class="btn btn-outline-secondary mt-2">
+        ← Grįžti prie apklausos
+    </a>
+
+</div>
+@endsection

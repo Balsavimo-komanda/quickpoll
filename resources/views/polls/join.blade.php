@@ -1,32 +1,49 @@
-<!DOCTYPE html>
-<html lang="lt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prisijungti prie balsavimo</title>
-</head>
-<body style="font-family: sans-serif; max-width: 400px; margin: 40px auto; padding: 0 16px;">
-    <h1>Prisijungti prie balsavimo</h1>
+@extends('layouts.app')
+
+@section('title', 'Prisijungti prie balsavimo')
+
+@section('content')
+<div class="container py-5" style="max-width: 450px;">
+
+    <h1 class="mb-2">Prisijungti prie balsavimo</h1>
+    <p class="text-muted mb-4">Įveskite apklausos kodą.</p>
 
     @if (session('error'))
-        <p style="color:#b91c1c">{{ session('error') }}</p>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
+
     @error('code')
-        <p style="color:#b91c1c">{{ $message }}</p>
+        <div class="alert alert-danger">
+            {{ $message }}
+        </div>
     @enderror
 
     <form method="POST" action="{{ route('polls.join') }}">
         @csrf
-        <input type="text" name="code" value="{{ old('code') }}"
-               placeholder="Įvesk kodą, pvz. K7M2QX"
-               maxlength="16" autofocus required style="width:100%; padding:8px; text-transform:uppercase;">
-        <button type="submit" style="margin-top:12px; padding:8px 16px;">Prisijungti</button>
-    </form>
-        </form>
 
-    <p style="margin-top:20px;">
-        <a href="{{ url('/') }}">← Grįžti į pradžią</a>
-    </p>
-</body>
-</body>
-</html>
+        <div class="mb-3">
+            <input
+                type="text"
+                name="code"
+                class="form-control text-uppercase"
+                value="{{ old('code') }}"
+                placeholder="Pvz. K7M2QX"
+                maxlength="16"
+                autofocus
+                required
+            >
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Prisijungti
+        </button>
+
+        <a href="{{ url('/') }}" class="btn btn-outline-secondary">
+            Grįžti
+        </a>
+    </form>
+
+</div>
+@endsection
