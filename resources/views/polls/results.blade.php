@@ -40,6 +40,6 @@
         </div>
     @endforeach
 
-    <p><a href="{{ route('polls.show', $poll) }}">← Grįžti prie apklausos</a></p>
+    <p><a href="{{ route('home') }}">← Grįžti į pradžią</a></p>
 </body>
 </html>
