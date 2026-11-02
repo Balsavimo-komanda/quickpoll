@@ -56,5 +56,5 @@
     @endforeach
 
     <p><a href="{{ route('home') }}">← Grįžti į pradžią</a></p>
-</body>
-</html>
+</div>
+@endsection
