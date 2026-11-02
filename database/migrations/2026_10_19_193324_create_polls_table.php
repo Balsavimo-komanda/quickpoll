@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('polls', function (Blueprint $table) {
             $table->uuid('id')->primary(); // Primary key for the poll.
             $table->string('title'); // The question or title of the poll.
+            $table->string('code', 6)->unique(); // Human readable poll code.
             $table->timestamps(); // created_at and updated_at timestamps.
         });
     }

@@ -13,14 +13,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('poll_options', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Primary key for the option.
 
+            // Foreign key linking this option to a specific poll.
+            // If the poll is deleted, its options are automatically deleted too.
             $table->foreignUuid('poll_id')
                 ->constrained('polls')
                 ->cascadeOnDelete();
 
-            $table->string('text');
-            $table->timestamps();
+            $table->string('text'); // The text of the choice.
+            $table->timestamps(); // created_at and updated_at timestamps.
         });
     }
 
