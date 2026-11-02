@@ -1,34 +1,52 @@
 @extends('layouts.app')
 
+@section('title', 'QuickPoll')
 
+@section('content')
+<div class="container py-4">
 
-<!DOCTYPE html>
-<html lang="lt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>QuickPoll</title>
-</head>
-<body>
-<h1>Sveiki atvykę į QuickPoll</h1>
+    <h1 class="fw-bold mb-5"> Sveiki atvykę į QuickPoll.</h1>
 
-@guest
-<p>No account</p>
-@else
-<p>With account</p>
-@endguest
+    <div class="mb-5">
+        <p class="fw-normal"> 
+            Kurkite apklausas ir balsuokite greitai.
+        </p>
 
-<p>Kurkite apklausas ir balsuokite greitai.</p>
-<a href="{{ route('polls.create') }}">Nauja apklausa</a>
-<br>
-<a href="{{ route('polls.join.form') }}">Turiu kodą</a>
-<h2>Apklausos</h2>
-<ul>
-    @forelse ($polls as $poll)
-        <li><a href="{{ route('polls.show', $poll) }}">{{ $poll->title }}</a></li>
-    @empty
-        <li>Apklausų dar nėra. Sukurkite pirmąją apklausą.</li>
-    @endforelse
-</ul>
-</body>
-</html>
+        <a href="{{ route('polls.create') }}" class="btn btn-primary me-2">
+            Nauja apklausa
+        </a>
+
+        <a href="{{ route('polls.join.form') }}" class="btn btn-outline-secondary">
+            Turiu kodą
+        </a>
+    </div>
+
+    <h2 class="h4 mb-3">Apklausos</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Apklausos pavadinimas</th>
+            <th>Veiksmai</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse ($polls as $poll)
+            <tr>
+                <td>{{ $poll->title }}</td>
+                <td>
+                    <a href="{{ route('polls.show', $poll) }}">
+                        Peržiūrėti
+                    </a>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="2">Apklausų dar nėra.</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
+</div>
+@endsection
