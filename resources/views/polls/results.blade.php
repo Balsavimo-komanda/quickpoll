@@ -55,9 +55,6 @@
         </div>
     @endforeach
 
-    <a href="{{ route('polls.show', $poll) }}" class="btn btn-outline-secondary mt-2">
-        ← Grįžti prie apklausos
-    </a>
-
-</div>
-@endsection
+    <p><a href="{{ route('home') }}">← Grįžti į pradžią</a></p>
+</body>
+</html>

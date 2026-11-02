@@ -17,14 +17,17 @@ return new class extends Migration
 
             // Foreign key linking this vote to overall poll.
             // If the poll is deleted, its votes are automatically deleted too.
-            $table->foreignId('poll_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('poll_id')
+                ->constrained('polls')
+                ->cascadeOnDelete();
 
             // Foreign key linking this vote to the specific option chosen.
             // If the poll is deleted, it will delete its options too, thus its votes.
-            $table->foreignId('poll_option_id')->constrained('poll_options')->cascadeOnDelete();
+            $table->foreignId('poll_option_id')
+                ->constrained('poll_options')
+                ->cascadeOnDelete();
 
-            // Stores the browser fingerprint hash.
-            $table->string('visitor_id');
+            $table->string('visitor_id'); // Stores the browser fingerprint hash.
 
             // This is not a database column, but a constraint!
             // Ensures a visitor can only register ONE vote per poll total.
