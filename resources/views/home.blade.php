@@ -8,7 +8,7 @@
     <h1 class="fw-bold mb-5"> Sveiki atvykę į QuickPoll.</h1>
 
     <div class="mb-5">
-        <p class="fw-normal"> 
+        <p class="fw-normal">
             Kurkite apklausas ir balsuokite greitai.
         </p>
 
@@ -33,7 +33,10 @@
     <tbody>
         @forelse ($polls as $poll)
             <tr>
-                <td>{{ $poll->title }}</td>
+                <td>
+                    @if(Auth::user()->id == $poll->user_id)
+                        {{ $poll->title }}</td>
+                    @endif
                 <td>
                     <a href="{{ route('polls.show', $poll) }}">
                         Peržiūrėti

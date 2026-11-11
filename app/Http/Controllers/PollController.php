@@ -31,6 +31,8 @@ class PollController extends Controller
             $poll->options()->create(['text' => $text]);
         }
 
+        $poll->user_id=$request->user()->id;
+
         return redirect()->route('polls.show', $poll)->with('status', 'Apklausa sukurta!');
     }
 
