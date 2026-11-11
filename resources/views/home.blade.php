@@ -8,9 +8,13 @@
     <h1 class="fw-bold mb-5"> Sveiki atvykę į QuickPoll.</h1>
 
     <div class="mb-5">
-        <p class="fw-normal"> 
+        <p class="fw-normal">
             Kurkite apklausas ir balsuokite greitai.
         </p>
+
+        <a href="{{ route('polls.view') }}" class="btn btn-primary me-2">
+            Peržiūrėti sukurtas apklausas
+        </a>
 
         <a href="{{ route('polls.create') }}" class="btn btn-primary me-2">
             Nauja apklausa
