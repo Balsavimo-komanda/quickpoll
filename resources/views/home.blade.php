@@ -12,10 +12,6 @@
             Kurkite apklausas ir balsuokite greitai.
         </p>
 
-        <a href="{{ route('polls.view') }}" class="btn btn-primary me-2">
-            Peržiūrėti sukurtas apklausas
-        </a>
-
         <a href="{{ route('polls.create') }}" class="btn btn-primary me-2">
             Nauja apklausa
         </a>
@@ -37,7 +33,10 @@
     <tbody>
         @forelse ($polls as $poll)
             <tr>
-                <td>{{ $poll->title }}</td>
+                <td>
+                    @if(Auth::user()->id == $poll->user_id)
+                        {{ $poll->title }}</td>
+                    @endif
                 <td>
                     <a href="{{ route('polls.show', $poll) }}">
                         Peržiūrėti

@@ -127,9 +127,4 @@ class PollController extends Controller
 
         return redirect()->route('polls.show', $poll);
     }
-
-    public function view()
-    {
-        return view('polls.view');
-    }
 }

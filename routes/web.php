@@ -38,4 +38,3 @@ Route::get('/polls/{poll}/results', [PollController::class, 'results'])->name('p
 // Max 5 vote attempts per minute per IP.
 Route::post('/polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote')->middleware('throttle:5,1');
 
-Route::get('/polls/view', [PollController::class, 'view'])->name('polls.view')->middleware('throttle:5,1');
