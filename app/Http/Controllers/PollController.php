@@ -32,6 +32,7 @@ class PollController extends Controller
         }
 
         $poll->user_id=$request->user()->id;
+        $poll->save();
 
         return redirect()->route('polls.show', $poll)->with('status', 'Apklausa sukurta!');
     }
@@ -101,7 +102,12 @@ class PollController extends Controller
         return view('polls.results', compact('poll', 'options', 'total', 'selectedOptionId'));
     }
 
-    public function joinForm(): View
+    //public function joinForm(): View
+    //{
+        //return view('polls.join');
+    //}
+
+    public function index(): View
     {
         return view('polls.join');
     }

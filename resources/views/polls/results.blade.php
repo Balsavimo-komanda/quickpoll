@@ -55,6 +55,6 @@
         </div>
     @endforeach
 
-    <p><a href="{{ route('home') }}">← Grįžti į pradžią</a></p>
+    <p><a href="{{ route('polls.join.form') }}">← Grįžti į pradžią</a></p>
 </div>
 @endsection

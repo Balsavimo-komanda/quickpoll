@@ -10,7 +10,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function home()
     {
         return view('home', ['polls' => Poll::latest()->get()]);
     }

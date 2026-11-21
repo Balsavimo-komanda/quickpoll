@@ -5,6 +5,8 @@
 @section('content')
 <div class="container py-5" style="max-width: 450px;">
 
+    <a href="{{ route('login') }}">Prisijungti prie paskyros</a>
+    <a href="{{ route('register') }}">Registruotis</a>
     <h1 class="mb-2">Prisijungti prie balsavimo</h1>
     <p class="text-muted mb-4">Įveskite apklausos kodą.</p>
 
@@ -40,9 +42,6 @@
             Prisijungti
         </button>
 
-        <a href="{{ url('/') }}" class="btn btn-outline-secondary">
-            Grįžti
-        </a>
     </form>
 
 </div>
