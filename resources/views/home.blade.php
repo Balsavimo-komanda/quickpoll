@@ -5,10 +5,10 @@
 @section('content')
 <div class="container py-4">
 
-    <h1 class="fw-bold mb-5"> Sveiki atvykę į QuickPoll.</h1>
+    <h1 class="fw-bold mb-5"> Sveiki atvykę į QuickPoll!</h1>
 
     <div class="mb-5">
-        <p class="fw-normal"> 
+        <p class="fw-normal">
             Kurkite apklausas ir balsuokite greitai.
         </p>
 
@@ -31,20 +31,22 @@
         </tr>
     </thead>
     <tbody>
-        @forelse ($polls as $poll)
-            <tr>
-                <td>{{ $poll->title }}</td>
-                <td>
-                    <a href="{{ route('polls.show', $poll) }}">
-                        Peržiūrėti
-                    </a>
-                </td>
-            </tr>
-        @empty
-            <tr>
-                <td colspan="2">Apklausų dar nėra.</td>
-            </tr>
-        @endforelse
+    @forelse ($polls as $poll)
+        <tr>
+            <td>{{ $poll->title }}</td>
+            <td>
+                <a href="{{ route('polls.show', $poll) }}">
+                    Peržiūrėti
+                </a>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="2" class="text-center text-muted py-3">
+                Apklausų nėra.
+            </td>
+        </tr>
+    @endforelse
     </tbody>
 </table>
 

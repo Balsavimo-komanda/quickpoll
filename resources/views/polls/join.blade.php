@@ -36,13 +36,14 @@
             >
         </div>
 
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary me-2">
             Prisijungti
         </button>
 
-        <a href="{{ url('/') }}" class="btn btn-outline-secondary">
-            Grįžti
-        </a>
+        @auth
+            <a class="btn btn-outline-secondary" href="{{ route('home') }}">Atšaukti</a>
+        @endauth
+
     </form>
 
 </div>

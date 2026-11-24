@@ -8,11 +8,11 @@ use App\Http\Controllers\PollController;
 // Authentication.
 Auth::routes();
 
-// Home page.
-Route::get('/', [HomeController::class, 'index'])->name('home');
+//Index (the form to enter a poll code manually)
+Route::get('/', [PollController::class, 'index'])->name('polls.join.form');
 
-// Show the form to enter a poll code manually.
-Route::get('/join', [PollController::class, 'joinForm'])->name('polls.join.form');
+// Home page.
+Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 // Process the join code submission.
 // Max 10 join attempts per minute per IP.

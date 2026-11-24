@@ -56,7 +56,7 @@
         </button>
 
         <div>
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary me-2">
                 Sukurti apklausą
             </button>
 

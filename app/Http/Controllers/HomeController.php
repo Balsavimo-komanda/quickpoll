@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Poll;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('home', ['polls' => Poll::latest()->get()]);
+        $this->middleware('auth');
+    }
+
+    public function home()
+    {
+        $polls = Poll::where('user_id', Auth::id())->get();
+
+        return view('home', compact('polls'));
     }
 }
