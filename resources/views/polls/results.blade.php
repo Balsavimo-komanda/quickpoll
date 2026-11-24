@@ -5,7 +5,9 @@
 @section('content')
 <div class="container py-5" style="max-width: 650px;">
 
-    <h1 class="mb-2">{{ $poll->title }}</h1>
+    <p><a href="{{ route('home') }}" class="text-decoration-none">← Grįžti į pradžią</a></p>
+
+    <h1 class="mt-4 mb-2">{{ $poll->title }}</h1>
     <p class="text-muted mb-4">Apklausos rezultatai</p>
 
     @if (session('error'))
@@ -55,6 +57,6 @@
         </div>
     @endforeach
 
-    <p><a href="{{ route('polls.join.form') }}">← Grįžti į pradžią</a></p>
+
 </div>
 @endsection

@@ -23,7 +23,7 @@
             @enderror
         </div>
 
-        <div class="mb-3">
+        <div class="mb-4">
             <label for="password" class="form-label fw-semibold">Slaptažodis</label>
             <input id="password" type="password"
                    class="form-control @error('password') is-invalid @enderror"
@@ -34,25 +34,9 @@
             @enderror
         </div>
 
-        <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox"
-                   name="remember" id="remember"
-                   {{ old('remember') ? 'checked' : '' }}>
-            <label class="form-check-label" for="remember">
-                Prisiminti mane
-            </label>
-        </div>
-
         <button type="submit" class="btn btn-primary">
             Prisijungti
         </button>
-
-        @if (Route::has('password.request'))
-            <a class="btn btn-outline-secondary"
-               href="{{ route('password.request') }}">
-                Pamiršau slaptažodį
-            </a>
-        @endif
     </form>
 
 </div>

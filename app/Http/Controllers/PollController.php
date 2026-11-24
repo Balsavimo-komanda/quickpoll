@@ -102,11 +102,6 @@ class PollController extends Controller
         return view('polls.results', compact('poll', 'options', 'total', 'selectedOptionId'));
     }
 
-    //public function joinForm(): View
-    //{
-        //return view('polls.join');
-    //}
-
     public function index(): View
     {
         return view('polls.join');

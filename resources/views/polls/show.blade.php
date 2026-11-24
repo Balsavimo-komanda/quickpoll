@@ -85,17 +85,14 @@
             </div>
         @enderror
 
-        <button type="submit" class="btn btn-primary" id="submit-btn" disabled>
+        <button type="submit" class="btn btn-primary me-2" id="submit-btn" disabled>
             Kraunama saugos patikra...
         </button>
-    </form>
 
-    <div class="mt-4">
-        <a href="{{ route('polls.results', $poll) }}">
+        <a class="btn btn-outline-secondary" href="{{ route('polls.results', $poll) }}">
             Peržiūrėti rezultatus
         </a>
-    </div>
-
+    </form>
 </div>
 
 <script>
