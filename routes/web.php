@@ -22,7 +22,7 @@ Route::post('/join', [PollController::class, 'join'])->name('polls.join')->middl
 Route::get('/join/{code}', [PollController::class, 'joinByCode'])->name('polls.join.code');
 
 // Show the form to create a new poll.
-Route::get('/polls/create', [PollController::class, 'create'])->name('polls.create');
+Route::get('/polls/create', [PollController::class, 'create'])->name('polls.create')->middleware('auth');
 
 // Store the newly created poll.
 // Max 5 create poll attempts per minute per IP.

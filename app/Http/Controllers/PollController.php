@@ -65,6 +65,7 @@ class PollController extends Controller
                 'poll_id' => $poll->id,
                 'poll_option_id' => $request->poll_option_id,
                 'visitor_id' => $request->visitor_id,
+                'voter_name' => $request->voter_name ?? null
             ]);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062 || str_contains($e->getMessage(), 'UNIQUE constraint')) {
@@ -78,6 +79,7 @@ class PollController extends Controller
 
         $request->session()->put('poll_visitors.'.$poll->id, $request->visitor_id);
         $request->session()->put('poll_votes.'.$poll->id, $request->poll_option_id);
+        $request->session()->put('poll_visitor_names.'.$request->visitor_id, $request->voter_name);
 
         return redirect()->route('polls.results', $poll);
     }

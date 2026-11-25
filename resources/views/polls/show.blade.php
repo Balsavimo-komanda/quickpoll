@@ -59,6 +59,9 @@
                 aria-describedby="option-error"
             @endif>
 
+            <label>Įveskite savo vardą</label>
+            <input type="text" name="voter_name" value="{{$voter_name}}">
+
             <legend class="h5 mb-3">
                 Pasirinkite vieną atsakymo variantą
             </legend>

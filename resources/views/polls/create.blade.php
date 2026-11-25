@@ -21,6 +21,7 @@
     <form method="POST" action="{{ route('polls.store') }}">
         @csrf
 
+        <input type="checkbox" name="show_names" value="Rodyti vardus">
         <div class="mb-3">
             <label class="form-label fw-semibold">Klausimas</label>
             <input

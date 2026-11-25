@@ -20,6 +20,15 @@
         Iš viso balsų: <strong>{{ $total }}</strong>
     </p>
 
+    @if (isset($_POST['show_names']))
+    <p class="mb-4">
+        Balsavo:
+        @foreach ($request->voter_name as $voter_name)
+            <strong>{{ $voter_name }}</strong>
+        @endforeach
+    </p>
+    @endif
+
     @foreach ($options as $option)
         @php
             $percent = $total > 0
