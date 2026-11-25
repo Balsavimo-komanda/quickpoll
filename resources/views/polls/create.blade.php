@@ -50,10 +50,21 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-outline-secondary mb-3"
-                onclick="addOption()">
-            + Pridėti variantą
-        </button>
+        <div class="mb-3">
+            <button type="button"
+                    class="btn btn-outline-secondary me-2"
+                    onclick="addOption()">
+                + Pridėti variantą
+            </button>
+
+            <button type="button"
+                    id="removeOptionBtn"
+                    class="btn btn-outline-danger"
+                    onclick="removeOption()"
+                    disabled>
+                - Pašalinti variantą
+            </button>
+        </div>
 
         <div>
             <button type="submit" class="btn btn-primary me-2">
@@ -69,6 +80,13 @@
 </div>
 
 <script>
+    function updateRemoveButton() {
+        const options = document.getElementById('options');
+        const removeButton = document.getElementById('removeOptionBtn');
+
+        removeButton.disabled = options.children.length <= 2;
+    }
+
     function addOption() {
         const input = document.createElement('input');
 
@@ -79,6 +97,21 @@
         input.required = true;
 
         document.getElementById('options').appendChild(input);
+
+        updateRemoveButton();
     }
+
+    function removeOption() {
+        const options = document.getElementById('options');
+
+        if (options.children.length > 2) {
+            options.removeChild(options.lastElementChild);
+        }
+
+        updateRemoveButton();
+    }
+
+    // Set the correct button state when the page loads.
+    document.addEventListener('DOMContentLoaded', updateRemoveButton);
 </script>
 @endsection
